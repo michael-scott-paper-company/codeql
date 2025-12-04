@@ -19,17 +19,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v6
       with:
-        # TODO: Spark expects the codeql repository in a ".spark" directory from its CWD.
-        # Add an option to Spark to specify the path to the checkout.
-        path: .spark/codeql
         ref: ${{ github.events.inputs.codeql_branch }}
 
-    - name: Install Spark dependencies
+    - name: Install Spark's dependencies
       run: |
         sudo apt update
         sudo apt install libpcre16-3 libpcre3 libpcre3-dev libpcre32-3 libpcrecpp0v5
 
-    - name: Download spark
+    - name: Download Spark
+      working-directory: ${{ runner.temp }}
       env:
         # TODO: Use a PAT with sufficient permissions to github/codeql-spark.
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -39,14 +37,14 @@ jobs:
         unzip "spark-$RUNNER_OS-$RUNNER_ARCH.zip"
 
     - name: Generate ReStructuredText documentation from Markdown documentation
+      working-directory: ${{ runner.temp }}
       env:
         # TODO: Use a PAT with sufficient permissions to github/codeql-owasp-top10-coverage.
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: ./spark sitedocs
+      run: ./spark sitedocs "$GITHUB_WORKSPACE/docs/codeql/codeql-overview/codeql-changelog"
 
     - name: Check for changes to CodeQL docs
       id: changes
-      working-directory: .spark/codeql
       run: |
         if git diff --quiet
         then
@@ -58,7 +56,6 @@ jobs:
 
     - name: Create PR
       if: steps.changes.outputs.changed == 'true'
-      working-directory: .spark/codeql
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NEW_BRANCH_NAME: "codeql-docs-update/${{ github.event.inputs.codeql_branch }}/${{ github.run_id }}"

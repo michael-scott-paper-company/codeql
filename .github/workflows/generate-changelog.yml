@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       codeql_branch:
-        description: The branch in github/codeql for which to build sitedocs.
+        description: The branch in github/codeql from which to generate the CHANGELOG.md.
         required: true
-        default: codeql-cli-X.X.X
+        default: codeql-cli-X.Y.Z
 
 permissions:
   contents: write

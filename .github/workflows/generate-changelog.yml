@@ -21,7 +21,7 @@ jobs:
       with:
         # TODO: Spark expects the codeql repository in a ".spark" directory from its CWD.
         # Add an option to Spark to specify the path to the checkout.
-        path: .spark
+        path: .spark/codeql
         ref: ${{ github.events.inputs.codeql_branch }}
         sparse-checkout: docs/codeql
 

@@ -64,7 +64,7 @@ jobs:
         git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
         
         git checkout -b "$NEW_BRANCH_NAME"
-        git add .
+        git add docs/codeql/codeql-overview
         git commit -m 'update codeql documentation'
         git push origin "$NEW_BRANCH_NAME"
 

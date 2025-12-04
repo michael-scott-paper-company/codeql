@@ -4,9 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       codeql_branch:
-        description: The branch in github/codeql from which to generate the CHANGELOG.md.
+        description: The branch in github/codeql from which to generate the CHANGELOG.md (e.g. codeql-cli-X.Y.Z)
         required: true
-        default: codeql-cli-X.Y.Z
 
 permissions:
   contents: write

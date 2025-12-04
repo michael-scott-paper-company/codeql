@@ -23,9 +23,6 @@ jobs:
         # Add an option to Spark to specify the path to the checkout.
         path: .spark/codeql
         ref: ${{ github.events.inputs.codeql_branch }}
-        sparse-checkout: |
-          docs/codeql
-          **/change-notes/**
 
     - name: Install Spark dependencies
       run: |

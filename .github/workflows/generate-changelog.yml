@@ -26,7 +26,7 @@ jobs:
     - name: Install Spark's dependencies
       run: |
         sudo apt update
-        sudo apt install libpcre3 libpcre16-3 libpcre32-3
+        sudo apt install libpcre3
 
     - name: Download Spark
       working-directory: ${{ runner.temp }}

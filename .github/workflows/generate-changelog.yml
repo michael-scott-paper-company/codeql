@@ -46,7 +46,7 @@ jobs:
       run: |
         ./spark sitedocs "$GITHUB_WORKSPACE/docs/codeql/codeql-overview/codeql-changelog" || true
         ls -l .spark/
-        wc -l .spark/codeql_queries.csv
+        wc -l .spark/queries.csv
 
     - name: Check for changes to CodeQL docs
       id: changes

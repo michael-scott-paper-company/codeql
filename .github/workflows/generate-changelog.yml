@@ -46,7 +46,10 @@ jobs:
       env:
         # TODO: Use a PAT with sufficient permissions to github/codeql-owasp-top10-coverage.
         GH_TOKEN: ${{ secrets.CODEQL_SPARK_OWASP_TOKEN }}
-      run: ./spark sitedocs "$GITHUB_WORKSPACE/docs/codeql/codeql-overview/codeql-changelog"
+      run: |
+        ./spark sitedocs "$GITHUB_WORKSPACE/docs/codeql/codeql-overview/codeql-changelog" || true
+        ls -l .spark/
+        wc -l .spark/codeql_queries.csv
 
     - name: Check for changes to CodeQL docs
       if: false

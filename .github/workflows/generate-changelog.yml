@@ -24,13 +24,11 @@ jobs:
       run: git switch -c "spark-${{ inputs.codeql_branch }}-${{ github.run_id }}"
 
     - name: Install Spark's dependencies
-      if: false
       run: |
         sudo apt update
         sudo apt install libpcre3
 
     - name: Download Spark
-      if: false
       working-directory: ${{ runner.temp }}
       env:
         # TODO: Use a PAT with sufficient permissions to github/codeql-spark.
@@ -41,7 +39,6 @@ jobs:
         unzip "spark-$RUNNER_OS-$RUNNER_ARCH.zip"
 
     - name: Generate ReStructuredText documentation from Markdown documentation
-      if: false
       working-directory: ${{ runner.temp }}
       env:
         # TODO: Use a PAT with sufficient permissions to github/codeql-owasp-top10-coverage.
@@ -52,7 +49,6 @@ jobs:
         wc -l .spark/codeql_queries.csv
 
     - name: Check for changes to CodeQL docs
-      if: false
       id: changes
       run: |
         if git diff --quiet

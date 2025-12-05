@@ -38,22 +38,15 @@ jobs:
         gh -R dsp-testing/mario-campos-docs-workflow release download v1.0.0
         unzip "spark-$RUNNER_OS-$RUNNER_ARCH.zip"
 
+    # NOTE: this step will fail if the security-coverage data is outdated,
+    #       which can happen immediately after a new version of CodeQL is released.
+    # TODO: Dispatch the github/codeql-owasp-top10-coverage workflow before this workflow.
     - name: Generate ReStructuredText documentation from Markdown documentation
       working-directory: ${{ runner.temp }}
       env:
         # TODO: Use a PAT with sufficient permissions to github/codeql-owasp-top10-coverage.
         GH_TOKEN: ${{ secrets.CODEQL_SPARK_OWASP_TOKEN }}
-      run: |
-        ./spark sitedocs "$GITHUB_WORKSPACE/docs/codeql/codeql-overview/codeql-changelog" || true
-        ls -l .spark/
-        wc -l .spark/queries.csv
-        md5sum .spark/queries.csv
-        gh api \
-          -H 'Accept: application/vnd.github.raw' \
-          '/repos/github/codeql-owasp-top10-coverage/contents/csv/codeql_queries.csv' \
-          > .spark/queries.csv
-        md5sum .spark/queries.csv
-        exit 1
+      run: ./spark sitedocs "$GITHUB_WORKSPACE/docs/codeql/codeql-overview/codeql-changelog"
 
     - name: Check for changes to CodeQL docs
       id: changes

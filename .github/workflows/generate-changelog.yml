@@ -24,6 +24,8 @@ jobs:
       env:
         NEW_BRANCH_NAME: "codeql-docs-update/${{ github.event.inputs.codeql_branch }}/${{ github.run_id }}"
       run: |
+        git show
+        exit 1
         git config user.name 'github-actions[bot]'
         git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
         git checkout -b "$NEW_BRANCH_NAME"

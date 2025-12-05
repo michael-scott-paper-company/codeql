@@ -18,7 +18,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v6
       with:
-        ref: z80coder/main-worse
+        ref: ${{ inputs.codeql_branch }}
 
     - name: Configure git client and branch
       env:

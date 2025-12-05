@@ -18,13 +18,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v6
       with:
-        ref: ${{ github.events.inputs.codeql_branch }}
+        ref: refs/heads/${{ github.events.inputs.codeql_branch }}
 
     - name: Configure git client and branch
       env:
         NEW_BRANCH_NAME: "codeql-docs-update/${{ github.event.inputs.codeql_branch }}/${{ github.run_id }}"
       run: |
-        git show
+        git show | head
         exit 1
         git config user.name 'github-actions[bot]'
         git config user.email '41898282+github-actions[bot]@users.noreply.github.com'

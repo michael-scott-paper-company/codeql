@@ -6,6 +6,9 @@ on:
       codeql_branch:
         description: The branch in github/codeql from which to generate the CHANGELOG.md (codeql-cli-X.Y.Z)
         required: true
+      reviewer:
+        description: The user handle to whom to assign as reviewer.
+        required: true
 
 permissions:
   contents: write
@@ -88,6 +91,8 @@ jobs:
         EOF
 
         gh pr create \
+          --assignee ${{ inputs.reviewer }} \
+          --reviewer ${{ inputs.reviewer }} \
           --base '${{ inputs.codeql_branch }}' \
           --title 'Update changelog reST documentation' \
           --body-file body.txt \

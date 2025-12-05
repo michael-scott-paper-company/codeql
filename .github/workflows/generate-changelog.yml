@@ -17,11 +17,15 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v6
+      with:
+        ref: z80coder/main-worse
 
     - name: Configure git client and branch
       env:
         NEW_BRANCH_NAME: "spark-${{ inputs.codeql_branch }}-${{ github.run_id }}"
       run: |
+        git show | head
+        exit 1
         git fetch
         git switch -c "$NEW_BRANCH_NAME" origin/${{ inputs.codeql_branch }}
 

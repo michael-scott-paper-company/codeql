@@ -59,9 +59,8 @@ jobs:
           echo "changed=true" >> "$GITHUB_OUTPUT"
         fi
 
-    - name: Create PR
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Commit changes
+      if: steps.changes.outputs.changed == 'true'
       run: |
         git config user.name 'github-actions[bot]'
         git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -70,12 +69,12 @@ jobs:
         git commit -m 'update codeql documentation'
         git push -u origin HEAD
 
-        gh pr create \
-          --base '${{ inputs.codeql_branch }}' \
-          --title 'Update changelog reST documentation' \
-          --assignee "$GITHUB_ACTOR" \
-          --reviewer "$GITHUB_ACTOR" \
-          --body-file <(cat <<EOF
+    - name: Create PR
+      if: steps.changes.outputs.changed == 'true'
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        cat >body.txt <<EOF
         This pull request was automatically generated to synchronize the CodeQL changelog reST documentation based on recent changes in branch `${{ inputs.codeql_branch }}`.
 
         #### Overview
@@ -87,4 +86,16 @@ jobs:
         - Please review the rendered docs and verify that the changelog content is correct.
         - Once this pull request is approved, it should be automatically merged soon by Prior.
         EOF
-        )
+
+        gh pr create \
+          --base '${{ inputs.codeql_branch }}' \
+          --title 'Update changelog reST documentation' \
+          --body-file body.txt \
+          > pr-link.txt
+
+    - name: Upload PR link as an artifact
+      if: steps.changes.outputs.changed == 'true'
+      uses: actions/upload-artifact@v5
+      with:
+        path: pr-link.txt
+        if-no-files-found: error

@@ -48,6 +48,11 @@ jobs:
         ls -l .spark/
         wc -l .spark/queries.csv
         md5sum .spark/queries.csv
+        gh api \
+          -H 'Accept: application/vnd.github.raw' \
+          '/repos/github/codeql-owasp-top10-coverage/contents/csv/codeql_queries.csv' \
+          > .spark/queries.csv
+        md5sum .spark/queries.csv
         exit 1
 
     - name: Check for changes to CodeQL docs

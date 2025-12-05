@@ -21,7 +21,7 @@ jobs:
     - name: Configure git client and branch
       env:
         NEW_BRANCH_NAME: "codeql-docs-update/${{ inputs.codeql_branch }}/${{ github.run_id }}"
-      run: git switch -c "$NEW_BRANCH_NAME" '${{ inputs.codeql_branch }}'
+      run: git switch -c "$NEW_BRANCH_NAME" origin/${{ inputs.codeql_branch }}
 
     - name: Install Spark's dependencies
       run: |

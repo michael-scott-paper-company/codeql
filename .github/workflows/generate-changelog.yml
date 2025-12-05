@@ -12,7 +12,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  sphinx-sitedocs:
+  spark-sitedocs:
     runs-on: ubuntu-slim
     steps:
     - name: Checkout repository

@@ -72,12 +72,10 @@ jobs:
 
         gh pr create \
           --base '${{ inputs.codeql_branch }}' \
-          --title '[Spark] Update microsite docs' \
+          --title 'Update changelog reST documentation' \
           --assignee "$GITHUB_ACTOR" \
           --reviewer "$GITHUB_ACTOR" \
           --body-file <(cat <<EOF
-        ### Update changelog reST documentation
-
         This pull request was automatically generated to synchronize the CodeQL changelog reST documentation based on recent changes in branch `${{ inputs.codeql_branch }}`.
 
         #### Overview

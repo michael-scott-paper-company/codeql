@@ -10,6 +10,7 @@ on:
         description: The user handle to whom to assign as reviewer.
         required: true
 
+# TODO: Disable all permissions by setting `permissions: {}` once in github/semmle-code.
 permissions:
   contents: write
   pull-requests: write

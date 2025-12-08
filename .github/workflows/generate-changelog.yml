@@ -40,8 +40,7 @@ jobs:
         # TODO: Use a PAT with sufficient permissions to github/codeql-spark.
         GH_TOKEN: ${{ secrets.CODEQL_SPARK_OWASP_TOKEN }}
       run: |
-        # TODO: Change the -R argument to "github/codeql-spark".
-        gh -R dsp-testing/mario-campos-docs-workflow release download v1.0.0
+        gh -R github/codeql-spark release download v1.0.0
         unzip "spark-$RUNNER_OS-$RUNNER_ARCH.zip"
 
     # NOTE: this step will fail if the security-coverage data is outdated,

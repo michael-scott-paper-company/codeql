@@ -108,6 +108,5 @@ jobs:
 
     - name: Summarize
       run: |
-        echo "# Summary" >> $GITHUB_STEP_SUMMARY
         echo "This workflow run has generated a pull request containing changes to the changelog ReST files:"
         echo ":warning: $(cat pr-link.txt)" >> $GITHUB_STEP_SUMMARY

@@ -24,10 +24,10 @@ jobs:
       with:
         # TODO: Change this to github/codeql.
         repository: michael-scott-paper-company/codeql
-        ref: ${{ inputs.codeql_branch }}
+        ref: ${{ inputs.pull_request_base_ref }}
 
     - name: Create new branch
-      run: git switch -c "spark-${{ inputs.codeql_branch }}-$GITHUB_RUN_ID"
+      run: git switch -c "spark-${{ inputs.pull_request_base_ref }}-$GITHUB_RUN_ID"
 
     - name: Install Spark's dependencies
       run: |
@@ -92,9 +92,9 @@ jobs:
         - Once this pull request is approved, it should be automatically merged soon by Prior."
 
         gh pr create \
-          --assignee ${{ inputs.reviewer }} \
-          --reviewer ${{ inputs.reviewer }} \
-          --base '${{ inputs.codeql_branch }}' \
+          --assignee ${{ inputs.pull_request_reviewer }} \
+          --reviewer ${{ inputs.pull_request_reviewer }} \
+          --base '${{ inputs.pull_request_base_ref }}' \
           --title 'Update changelog reST documentation' \
           --body "$PR_BODY" \
           > pr-link.txt

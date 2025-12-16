@@ -58,10 +58,11 @@ jobs:
       run: |
         if git diff --quiet
         then
-          echo 'No changes to CodeQL docs detected; nothing to commit.'
           echo "changed=false" >> "$GITHUB_OUTPUT"
+          echo 'No changes to CodeQL docs detected; nothing to commit.'
         else
           echo "changed=true" >> "$GITHUB_OUTPUT"
+          git diff --compact-summary
         fi
 
     - name: Commit changes

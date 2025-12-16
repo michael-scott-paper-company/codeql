@@ -14,7 +14,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  issues: write
 
 jobs:
   spark-sitedocs:
@@ -80,8 +79,7 @@ jobs:
       if: steps.changes.outputs.changed == 'true'
       env:
         # TODO: Use a PAT with write permissions to github/codeql.
-        #GH_TOKEN: ${{ secrets.CODEQL_BOT_PAT }}
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.CODEQL_BOT_PAT }}
       run: |
         PR_BODY="This pull request was automatically generated to synchronize the CodeQL changelog reST documentation based on recent changes in branch `${{ inputs.codeql_branch }}`.
 

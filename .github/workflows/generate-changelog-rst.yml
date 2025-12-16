@@ -1,4 +1,4 @@
-name: Generate Changelog RSTs
+name: Generate Changelog ReStructuredText
 
 on:
   workflow_dispatch:

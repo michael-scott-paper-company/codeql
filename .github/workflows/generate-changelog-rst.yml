@@ -3,10 +3,10 @@ name: Generate Changelog RSTs
 on:
   workflow_dispatch:
     inputs:
-      codeql_branch:
+      pull_request_base_ref:
         description: The branch in github/codeql from which to generate the CHANGELOG.md (codeql-cli-X.Y.Z)
         required: true
-      reviewer:
+      pull_request_reviewer:
         description: The user handle to whom to assign as reviewer.
         required: true
 

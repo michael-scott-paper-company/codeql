@@ -62,7 +62,7 @@ jobs:
           echo 'No changes to CodeQL docs detected; nothing to commit.'
         else
           echo "changed=true" >> "$GITHUB_OUTPUT"
-          git diff --compact-summary
+          git status --porcelain
         fi
 
     - name: Commit changes

@@ -100,6 +100,8 @@ jobs:
           --body "$PR_BODY" \
           > pr-link.txt
 
+        gh pr merge --auto
+
     - name: Upload PR link as an artifact
       if: steps.changes.outputs.changed == 'true'
       uses: actions/upload-artifact@v5

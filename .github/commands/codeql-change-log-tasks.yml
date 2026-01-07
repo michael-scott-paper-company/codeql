@@ -20,5 +20,7 @@ steps:
           label: Base release branch
           description: |
             The branch of the `codeql` repository that serves as the base branch for the release. Usually `main`, but could be `rc/x.yy` if near a GHES release.
+  - type: repository_dispatch
+    eventType: prior__execute__foobar
   - type: fill
     template_path: .github/commands/codeql-change-log.liquid

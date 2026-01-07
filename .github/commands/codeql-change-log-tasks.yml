@@ -1,0 +1,24 @@
+---
+trigger: codeql-change-log
+title: Publish CodeQL change log
+description: Tasks to publish the CodeQL change log for the latest release of the CodeQL CLI to the CodeQL docs site.
+surfaces:
+  - issue
+steps:
+  - type: form
+    style: embedded
+    body:
+      - type: input
+        attributes:
+          id: codeql-cli-branch
+          label: CodeQL CLI branch
+          description: |
+            The branch of the `codeql` repository that contains the CodeQL library for the current release (for example: `codeql-cli-2.15.5`).
+      - type: input
+        attributes:
+          id: base-release-branch
+          label: Base release branch
+          description: |
+            The branch of the `codeql` repository that serves as the base branch for the release. Usually `main`, but could be `rc/x.yy` if near a GHES release.
+  - type: fill
+    template_path: .github/commands/codeql-change-log.liquid

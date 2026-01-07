@@ -1,0 +1,14 @@
+### Tasks for publishing a change log for the CodeQL CLI
+
+Prerequisities:
+
+1. You have `maintainer` permission for the [codeql-docs](https://github.com/github/codeql-docs) repository.
+1. The change log file is already merged into the [codeql](https://github.com/github/codeql) repository in the `main` branch.
+
+Publication tasks:
+
+- [ ] Run: https://github.com/github/semmle-code/actions/workflows/__docs-generate-sphinx.yml using the **workflow** on the `{{ data.base-release-branch }}` branch to generate an artifact with the new Change log file.
+- [ ] Run: https://github.com/github/codeql-docs/actions/workflows/get-codeql-docs.yml to collect the artifact from the `{{ data.base-release-branch }}` branch of the `semmle-code` repository.
+- [ ] Review the preview in the PR in [CodeQL docs](https://github.com/github/codeql-docs/pulls).
+- [ ] Merge the PR.
+- [ ] Publish the docs to the live site using: https://github.com/github/codeql-docs/actions/workflows/publish-main-to-public-site.yml. In the workflow input dialog, you will need to specify which branch to generate the **QL library docs** from, this should be the `{{ data.codeql-cli-branch }}` branch.

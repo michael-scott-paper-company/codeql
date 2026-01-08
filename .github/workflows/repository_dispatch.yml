@@ -5,11 +5,16 @@ on:
 
 jobs:
   create_event:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     permissions:
       contents: write
     steps:
     - name: Repository Dispatch
       uses: peter-evans/repository-dispatch@v4
       with:
-        event-type: my-event
+        event-type: prior__execute__publishChangelog
+        client-payload: |-
+          {
+            "CodeQL CLI branch": "codeql-cli-2.23.7",
+            "Base release branch": "main"
+          }

@@ -62,7 +62,7 @@ jobs:
     - name: Check for changes to CodeQL docs
       id: changes
       run: |
-        touch new-file.txt
+        >README.md # Stub to make sure a PR is created
         if git diff --quiet
         then
           echo "changed=false" >> "$GITHUB_OUTPUT"

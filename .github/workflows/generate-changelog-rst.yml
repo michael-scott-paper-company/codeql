@@ -104,6 +104,7 @@ jobs:
       if: steps.changes.outputs.changed == 'true'
       uses: actions/upload-artifact@v5
       with:
+        name: pr-link
         path: pr-link.txt
 
     - name: Summarize

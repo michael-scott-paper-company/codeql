@@ -109,4 +109,5 @@ jobs:
         path: pr-link.txt
 
     - name: Summarize
+      if: steps.changes.outputs.changed == 'true'
       run: cat pr-link.txt >> $GITHUB_STEP_SUMMARY

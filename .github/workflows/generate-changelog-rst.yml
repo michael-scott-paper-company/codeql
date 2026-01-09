@@ -30,11 +30,15 @@ jobs:
       run: git switch -c "spark-${{ inputs.pull_request_base_ref }}-$GITHUB_RUN_ID"
 
     - name: Install Spark's dependencies
+      # `if: false` is a stub to speed-up testing
+      if: false
       run: |
         sudo apt update
         sudo apt install libpcre3
 
     - name: Download Spark
+      # `if: false` is a stub to speed-up testing
+      if: false
       working-directory: ${{ runner.temp }}
       env:
         # TODO: Use a PAT with sufficient permissions to github/codeql-spark.
@@ -47,18 +51,18 @@ jobs:
     #       which can happen immediately after a new version of CodeQL is released.
     # TODO: Dispatch the github/codeql-owasp-top10-coverage workflow before this workflow.
     - name: Generate ReStructuredText documentation from Markdown documentation
+      # `if: false` is a stub to speed-up testing and reduce flakiness
+      if: false
       working-directory: ${{ runner.temp }}
       env:
         # TODO: Use a PAT with sufficient permissions to github/codeql-owasp-top10-coverage.
         GH_TOKEN: ${{ secrets.CODEQL_SPARK_OWASP_TOKEN }}
-      run: |
-        # Stubbing this out to speed-up and reduce flakiness of testing.
-        #./spark sitedocs "$GITHUB_WORKSPACE/docs/codeql/codeql-overview/codeql-changelog"
-        touch new_file.txt
+      run: ./spark sitedocs "$GITHUB_WORKSPACE/docs/codeql/codeql-overview/codeql-changelog"
 
     - name: Check for changes to CodeQL docs
       id: changes
       run: |
+        touch new-file.txt
         if git diff --quiet
         then
           echo "changed=false" >> "$GITHUB_OUTPUT"
